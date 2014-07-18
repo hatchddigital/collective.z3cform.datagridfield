@@ -65,7 +65,7 @@ jQuery(function($) {
      * Handle auto insert events by auto append
      */
     dataGridField2Functions.onInsert = function(e) {
-        var currnode = window.event ? window.event.srcElement : e.currentTarget;
+        var currnode = e.currentTarget;
         this.autoInsertRow(currnode);
     },
 
@@ -193,7 +193,7 @@ jQuery(function($) {
             throw new Error("Could not locate empty template row in DGF");
         }
 
-        var new_row = emptyRow.clone(true).removeClass('datagridwidget-empty-row');
+        var new_row = emptyRow.clone().removeClass('datagridwidget-empty-row');
 
         return new_row;
     };
@@ -340,7 +340,7 @@ jQuery(function($) {
                 var val = el.attr(attr);
                 var pattern = new RegExp('^' + prefix + oldindex);
                 el.attr(attr, val.replace(pattern, prefix + newindex));
-                if (attr.startsWith('data-')) {
+                if (attr.indexOf('data-') === 0) {
                     var key = attr.substr(5);
                     var data = el.data(key);
                     el.data(key, data.replace(pattern, prefix + newindex));
