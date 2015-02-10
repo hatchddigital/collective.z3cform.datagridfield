@@ -151,6 +151,7 @@ jQuery(function($) {
      * @param {Object} currnode DOM <tr>
      */
     dataGridField2Functions.addRowAfter = function(currnode) {
+        $(currnode).unbind();
 
         // fetch required data structure
         var tbody = this.getParentByClass(currnode, "datagridwidget-body");
@@ -212,11 +213,14 @@ jQuery(function($) {
 
 
     dataGridField2Functions.removeFieldRow = function(node) {
-        /* Remove the row in which the given node is found */
-        var tbody = this.getParentByClass(node, "datagridwidget-body");
-        var row = this.getParentRow(node);
-        $(row).remove();
-        this.updateOrderIndex(tbody,false);
+        $(node).unbind();
+        if (confirm('Are you sure you want to delete this row?')) {
+            /* Remove the row in which the given node is found */
+            var tbody = this.getParentByClass(node, "datagridwidget-body");
+            var row = this.getParentRow(node);
+            $(row).remove();
+            this.updateOrderIndex(tbody,false);
+        }
     };
 
     dataGridField2Functions.moveRow = function(currnode, direction){
@@ -291,10 +295,12 @@ jQuery(function($) {
     };
 
     dataGridField2Functions.moveRowDown = function(currnode){
+        $(currnode).unbind();
         this.moveRow(currnode, "down");
     };
 
     dataGridField2Functions.moveRowUp = function(currnode){
+        $(currnode).unbind();
         this.moveRow(currnode, "up");
     };
 
